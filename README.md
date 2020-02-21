@@ -2,10 +2,10 @@
 kaptcha for spring boot autoconfigure
 
 ### 1. Features
- - [*] Support configuration metadata.
- - [*] Flexible enabled or disabled.
- - [*] Custom your urlMapping for kaptcha servlet.
- - [*] Auto register bean, more information please see KaptchaAutoConfiguration.
+ - [x] Support configuration metadata.
+ - [x] Flexible enabled or disabled.
+ - [x] Custom your urlMapping for kaptcha servlet.
+ - [x] Auto register bean, more information please see KaptchaAutoConfiguration.
 
 ### 2. Maven
 ```
