@@ -32,11 +32,16 @@ Kaptcha for spring boot autoconfigure.
        url-mapping: /kaptcha
        config:
          kaptcha:
+           #
            # Note: To avoid syntax errors in yaml files,
-           #       when border property is "no", don't set value of border color and thickness.
-           #       when border property is "yes", omit border setting and direct set value of border color and thickness.
+           #       when border property is "no", don't set value of border color and border thickness.
+           #       when border property is "yes", You must omit the border property setting and
+           #       set value of border color and border thickness directly.
+           #
            #       Take a look at the following example:
+           #           1) Hide border
            # border: "no"
+           #           2) Show border
            border:
              color: "105,179,90"
              thickness: 1
