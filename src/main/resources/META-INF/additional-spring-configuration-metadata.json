@@ -1,0 +1,227 @@
+{
+    "properties": [
+      {
+        "name": "youkol.web.kaptcha.enabled",
+        "type": "java.lang.Boolean",
+        "description": "A boolean flag that can disable all Kaptcha Spring Boot starters.",
+        "defaultValue": true
+      },
+      {
+        "name": "youkol.web.kaptcha.url-mapping",
+        "type": "java.lang.String",
+        "description": "URL mapping for KaptchaServlet",
+        "defaultValue": "/captcha"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.border",
+        "type": "java.lang.String",
+        "description": "A boolean flag that can disable kaptcha border display.",
+        "defaultValue": "yes"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.border.color",
+        "type": "java.lang.String",
+        "description": "The kaptcha border color. The color support for three modes, example: \"r,g,b,a\", \"r,g,b\", ",
+        "defaultValue": "BLACK"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.border.thickness",
+        "type": "java.lang.String",
+        "description": "The kaptcha border thickness.",
+        "defaultValue": "1"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.noise.color",
+        "type": "java.lang.String",
+        "description": "The kaptcha noise color",
+        "defaultValue": "BLACK"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.noise.impl",
+        "type": "java.lang.String",
+        "description": "The kaptcha noise implementing class name.",
+        "defaultValue": "com.google.code.kaptcha.impl.DefaultNoise"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.obscurificator.impl",
+        "type": "java.lang.String",
+        "description": "The kaptcha obscurificator implementing class name.",
+        "defaultValue": "com.google.code.kaptcha.impl.WaterRipple"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.producer.impl",
+        "type": "java.lang.String",
+        "description": "The kaptcha producer implementing class name.",
+        "defaultValue": "com.google.code.kaptcha.impl.DefaultKaptcha"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.textproducer.impl",
+        "type": "java.lang.String",
+        "description": "The kaptcha textproducer implementing class name.",
+        "defaultValue": "com.google.code.kaptcha.text.impl.DefaultTextCreator"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.textproducer.char.string",
+        "type": "java.lang.String",
+        "description": "The kaptcha textproducer char string.",
+        "defaultValue": "abcde2345678gfynmnpwx"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.textproducer.char.length",
+        "type": "java.lang.String",
+        "description": "The kaptcha textproducer char length.",
+        "defaultValue": "5"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.textproducer.font.names",
+        "type": "java.lang.String[]",
+        "description": "The kaptcha textproducer.font names",
+        "defaultValue": "Arial,Courier"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.textproducer.font.color",
+        "type": "java.lang.String",
+        "description": "The kaptcha textproducer font color",
+        "defaultValue": "BLACK"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.textproducer.font.size",
+        "type": "java.lang.String",
+        "description": "The kaptcha textproducer font size",
+        "defaultValue": "40"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.textproducer.char.space",
+        "type": "java.lang.String",
+        "description": "The kaptcha textproducer char space",
+        "defaultValue": "2"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.word.impl",
+        "type": "java.lang.String",
+        "description": "The kaptcha word renderer implementing class name.",
+        "defaultValue": "com.google.code.kaptcha.text.impl.DefaultWordRenderer"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.background.impl",
+        "type": "java.lang.String",
+        "description": "The kaptcha background implementing class name.",
+        "defaultValue": "com.google.code.kaptcha.impl.DefaultBackground"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.background.clear.from",
+        "type": "java.lang.String",
+        "description": "The kaptcha background clear from.",
+        "defaultValue": "LIGHT_GRAY"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.background.clear.to",
+        "type": "java.lang.String",
+        "description": "The kaptcha background clear to.",
+        "defaultValue": "WHITE"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.image.width",
+        "type": "java.lang.String",
+        "description": "The kaptcha image width.",
+        "defaultValue": "200"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.image.height",
+        "type": "java.lang.String",
+        "description": "The kaptcha image height.",
+        "defaultValue": "50"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.session.key",
+        "type": "java.lang.String",
+        "description": "The kaptcha session key.",
+        "defaultValue": "KAPTCHA_SESSION_KEY"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.session.date",
+        "type": "java.lang.String",
+        "description": "The kaptcha session date.",
+        "defaultValue": "KAPTCHA_SESSION_DATE"
+      }
+    ],
+    "hints": [
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.border",
+        "values": [
+          {
+            "value": "yes"
+          },
+          {
+            "value": "no"
+          }
+        ]
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.producer.impl",
+        "providers": [
+          {
+            "name": "class-reference",
+            "parameters": {
+              "target": "com.google.code.kaptcha.Producer"
+            }
+          }
+        ]
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.textproducer.impl",
+        "providers": [
+          {
+            "name": "class-reference",
+            "parameters": {
+              "target": "com.google.code.kaptcha.TextProducer"
+            }
+          }
+        ]
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.noise.impl",
+        "providers": [
+          {
+            "name": "class-reference",
+            "parameters": {
+              "target": "com.google.code.kaptcha.NoiseProducer"
+            }
+          }
+        ]
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.obscurificator.impl",
+        "providers": [
+          {
+            "name": "class-reference",
+            "parameters": {
+              "target": "com.google.code.kaptcha.GimpyEngine"
+            }
+          }
+        ]
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.word.impl",
+        "providers": [
+          {
+            "name": "class-reference",
+            "parameters": {
+              "target": "com.google.code.kaptcha.WordRenderer"
+            }
+          }
+        ]
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.background.impl",
+        "providers": [
+          {
+            "name": "class-reference",
+            "parameters": {
+              "target": "com.google.code.kaptcha.BackgroundProducer"
+            }
+          }
+        ]
+      }
+    ]
+  }
