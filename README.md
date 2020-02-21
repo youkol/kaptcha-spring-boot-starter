@@ -7,7 +7,7 @@
 Kaptcha for spring boot autoconfigure.
 
 ### 1. Features
- - [x] Support configuration metadata.
+ - [x] Support spring boot configuration metadata.
  - [x] Flexible enabled or disabled kaptcha.
  - [x] Custom your urlMapping for kaptcha servlet.
  - [x] Auto register bean, more information please see KaptchaAutoConfiguration.
