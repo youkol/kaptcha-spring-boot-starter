@@ -54,7 +54,7 @@ Kaptcha for spring boot autoconfigure.
                length: 5
                space: 2
              font:
-               # names: \u5fae\u8f6f\u96c5\u9ed1,Arial,\u5b8b\u4f53,\u6977\u4f53
+               names: \u5fae\u8f6f\u96c5\u9ed1,Arial,\u5b8b\u4f53,\u6977\u4f53
                size: 40
                color: BLUE
            noise:
