@@ -23,7 +23,8 @@ Kaptcha for spring boot autoconfigure.
 
 ### 3. application.yml
 ```
-# support zero-configuration mode, it will running by the default value.
+# Support zero-configuration mode, it will running by the default value.
+# For Example:
 # youkol:
 #   web:
 #     kaptcha:
