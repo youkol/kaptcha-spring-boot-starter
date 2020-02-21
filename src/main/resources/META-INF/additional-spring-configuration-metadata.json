@@ -10,7 +10,7 @@
         "name": "youkol.web.kaptcha.url-mapping",
         "type": "java.lang.String",
         "description": "URL mapping for KaptchaServlet",
-        "defaultValue": "/captcha"
+        "defaultValue": "/kaptcha"
       },
       {
         "name": "youkol.web.kaptcha.config.kaptcha.border",

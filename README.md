@@ -29,7 +29,7 @@ Kaptcha for spring boot autoconfigure.
 #   web:
 #     kaptcha:
 #       enabled: true # default value is true
-#       url-mapping: /captcha # default value is "/captcha"
+#       url-mapping: /kaptcha # default value is "/kaptcha"
 #       config:
 #         kaptcha:
 #           border: "no"
@@ -52,8 +52,8 @@ Kaptcha for spring boot autoconfigure.
 #           background.clear.to: lightGray
 #           image.width: 200
 #           image.height: 50
-#           session.key: YOUKOL_CAPTCHA_SESSION_KEY
-#           session.date: YOUKOL_CAPTCHA_SESSION_DATE
+#           session.key: YOUKOL_KAPTCHA_SESSION_KEY
+#           session.date: YOUKOL_KAPTCHA_SESSION_DATE
 ```
 
 ### About Kaptcha
