@@ -15,13 +15,13 @@
       {
         "name": "youkol.web.kaptcha.config.kaptcha.border",
         "type": "java.lang.String",
-        "description": "A boolean flag that can disable kaptcha border display.",
+        "description": "A string flag that can disable kaptcha border display.",
         "defaultValue": "yes"
       },
       {
         "name": "youkol.web.kaptcha.config.kaptcha.border.color",
         "type": "java.lang.String",
-        "description": "The kaptcha border color. The color support for three modes, example: \"r,g,b,a\", \"r,g,b\", ",
+        "description": "The kaptcha border color. The color support for multi modes, for example: \"r,g,b,a\", \"r,g,b\", \"BLACK\"",
         "defaultValue": "BLACK"
       },
       {
@@ -33,7 +33,7 @@
       {
         "name": "youkol.web.kaptcha.config.kaptcha.noise.color",
         "type": "java.lang.String",
-        "description": "The kaptcha noise color",
+        "description": "The kaptcha noise color. The color support for multi modes, for example: \"r,g,b,a\", \"r,g,b\", \"BLACK\"",
         "defaultValue": "BLACK"
       },
       {
@@ -74,14 +74,14 @@
       },
       {
         "name": "youkol.web.kaptcha.config.kaptcha.textproducer.font.names",
-        "type": "java.lang.String[]",
-        "description": "The kaptcha textproducer.font names",
+        "type": "java.lang.String",
+        "description": "The kaptcha textproducer font names",
         "defaultValue": "Arial,Courier"
       },
       {
         "name": "youkol.web.kaptcha.config.kaptcha.textproducer.font.color",
         "type": "java.lang.String",
-        "description": "The kaptcha textproducer font color",
+        "description": "The kaptcha textproducer font color. The color support for multi modes, for example: \"r,g,b,a\", \"r,g,b\", \"BLACK\"",
         "defaultValue": "BLACK"
       },
       {

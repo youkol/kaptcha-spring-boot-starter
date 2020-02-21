@@ -13,7 +13,7 @@ Kaptcha for spring boot autoconfigure.
  - [x] Auto register bean, more information please see KaptchaAutoConfiguration.
 
 ### 2. Maven
-```
+```xml
 <dependency>
     <groupId>com.youkol.support.kaptcha</groupId>
     <artifactId>kaptcha-spring-boot-starter</artifactId>
@@ -22,38 +22,54 @@ Kaptcha for spring boot autoconfigure.
 ```
 
 ### 3. Config spring-boot application.yml 
-```
+```yaml
 # Support zero-configuration mode, it will running by the default value.
 # For Example:
-# youkol:
-#   web:
-#     kaptcha:
-#       enabled: true # default value is true
-#       url-mapping: /kaptcha # default value is "/kaptcha"
-#       config:
-#         kaptcha:
-#           border: "no"
-#           border.color: 105,179,90
-#           border.thickness: 
-#           producer.impl: 
-#           textproducer.impl: 
-#           textproducer.char.string: abcde2345678gfynmnpwx
-#           textproducer.char.length: 5
-#           textproducer.font.names: \u5fae\u8f6f\u96c5\u9ed1,Arial,\u5b8b\u4f53,\u6977\u4f53
-#           textproducer.font.size: 40
-#           textproducer.font.color: blue
-#           textproducer.char.space: 
-#           noise.impl: com.google.code.kaptcha.impl.NoNoise
-#           noise.color: 
-#           obscurificator.impl: com.google.code.kaptcha.impl.WaterRipple
-#           word.impl: 
-#           background.impl: 
-#           background.clear.from: lightGray
-#           background.clear.to: lightGray
-#           image.width: 200
-#           image.height: 50
-#           session.key: YOUKOL_KAPTCHA_SESSION_KEY
-#           session.date: YOUKOL_KAPTCHA_SESSION_DATE
+ youkol:
+   web:
+     kaptcha:
+       enabled: true
+       url-mapping: /kaptcha
+       config:
+         kaptcha:
+           # Note: To avoid syntax errors in yaml files,
+           #       when border property is "no", don't set value of border color and thickness.
+           #       when border property is "yes", omit border setting and direct set value of border color and thickness.
+           #       Take a look at the following example:
+           # border: "no"
+           border:
+             color: "105,179,90"
+             thickness: 1
+           producer:
+             impl: com.google.code.kaptcha.impl.DefaultKaptcha
+           textproducer:
+             impl: com.google.code.kaptcha.text.impl.DefaultTextCreator
+             char:
+               string: abcde2345678gfynmnpwx
+               length: 5
+               space: 2
+             font:
+               # names: \u5fae\u8f6f\u96c5\u9ed1,Arial,\u5b8b\u4f53,\u6977\u4f53
+               size: 40
+               color: BLUE
+           noise:
+             impl: com.google.code.kaptcha.impl.NoNoise
+             color: BLACK
+           obscurificator:
+             impl: com.google.code.kaptcha.impl.WaterRipple
+           word:
+             impl: com.google.code.kaptcha.text.impl.DefaultWordRenderer
+           background:
+             impl: com.google.code.kaptcha.impl.DefaultBackground
+             clear:
+               from: LIGHT_GRAY
+               to: WHITE
+           image:
+             width: 200
+             height: 50
+           session:
+             key: YOUKOL_KAPTCHA_SESSION_KEY
+             date: YOUKOL_KAPTCHA_SESSION_DATE
 ```
 
 ### About Kaptcha
