@@ -1,6 +1,10 @@
 # kaptcha-spring-boot-starter
 
-Kaptcha for spring boot autoconfigure
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.youkol.support.kaptcha/kaptcha-spring-boot-starter/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.youkol.support.kaptcha/kaptcha-spring-boot-starter)
+[![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/com.youkol.support.kaptcha/kaptcha-spring-boot-starter?server=https%3A%2F%2Foss.sonatype.org)](https://oss.sonatype.org/content/repositories/snapshots/com/youkol/support/kaptcha/kaptcha-spring-boot-starter/)
+[![License](https://img.shields.io/badge/license-apache-brightgreen)](http://www.apache.org/licenses/LICENSE-2.0.html)
+
+Kaptcha for spring boot autoconfigure.
 
 ### 1. Features
  - [x] Support configuration metadata.
