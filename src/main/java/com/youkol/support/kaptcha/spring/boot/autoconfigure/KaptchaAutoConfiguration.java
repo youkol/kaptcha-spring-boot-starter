@@ -23,6 +23,7 @@ import com.google.code.kaptcha.servlet.KaptchaServlet;
 import com.google.code.kaptcha.util.Config;
 
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -72,7 +73,7 @@ public class KaptchaAutoConfiguration {
     }
 
     @Bean(name = "kaptchaServletRegistrationBean")
-    @ConditionalOnMissingBean
+    @ConditionalOnBean(value = KaptchaServlet.class, name = "kaptchaServlet")
     @ConditionalOnProperty(prefix = KaptchaProperties.KAPTCHA_PREFIX, value = "enabled", matchIfMissing = true)
     public ServletRegistrationBean<KaptchaServlet> kaptchaServletRegistrationBean(KaptchaServlet kaptchaServlet){
         ServletRegistrationBean<KaptchaServlet> registration = new ServletRegistrationBean<>();
