@@ -21,7 +21,7 @@ Kaptcha for spring boot autoconfigure.
 </dependency>
 ```
 
-### 3. application.yml
+### 3. Config spring-boot application.yml 
 ```
 # Support zero-configuration mode, it will running by the default value.
 # For Example:
