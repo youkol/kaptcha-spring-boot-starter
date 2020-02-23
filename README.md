@@ -77,7 +77,7 @@ youkol:
           image:
             width: 200
             height: 50
-          # Deprecated session config, replaced by store.* 
+          # Deprecated session config, please use store.*
           # since version 3.2.3
           # session:
           #   key: YOUKOL_KAPTCHA_SESSION_KEY
