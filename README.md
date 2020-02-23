@@ -7,14 +7,14 @@
 Kaptcha for spring boot autoconfigure.
 
 ### 1. Features
- - [x] Support spring boot configuration metadata.
- - [x] Flexible enabled or disabled kaptcha.
- - [x] Custom your urlMapping for kaptcha servlet.
- - [x] Auto register bean, more information please see `KaptchaAutoConfiguration`.
- - [x] Expose bean of `KaptchaConfig` and `KaptchaProducer`, you can use it to custom your implementation.
+ - [x] Support spring boot configuration metadata. (v2.3.2)
+ - [x] Flexible enabled or disabled kaptcha. (v2.3.2)
+ - [x] Custom your urlMapping for kaptcha servlet. (v2.3.2)
+ - [x] Auto register bean, more information please see `KaptchaAutoConfiguration`. (v2.3.2)
+ - [x] Expose bean of `KaptchaConfig` and `KaptchaProducer`, you can use it to custom your implementation. (v2.3.2)
  - [x] KaptchaServet request accept a size parameter,    
-       it will generate different image size based on the parameter for every request.
- - [x] The extended support let you can custom storage mode for the text in image.
+       it will generate different image size based on the parameter for every request. (v2.3.3)
+ - [x] The extended support let you can custom storage mode for the text in image. (v2.3.3)
 
 ### 2. Maven
 ```xml
