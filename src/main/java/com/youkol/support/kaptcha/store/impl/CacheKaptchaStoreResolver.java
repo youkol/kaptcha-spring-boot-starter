@@ -19,6 +19,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -74,6 +75,7 @@ public class CacheKaptchaStoreResolver extends AbstractkaptchaStoreResolver {
         }
     }
 
+    @PostConstruct
     public void init() {
         String storeCacheName = this.config.getStoreCacheName();
         if (!StringUtils.isEmpty(storeCacheName)) {

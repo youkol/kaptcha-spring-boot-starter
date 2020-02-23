@@ -86,7 +86,7 @@ youkol:
            resolver-class-name: com.youkol.support.kaptcha.store.impl.CacheKaptchaStoreResolver
            text-key: YOUKOL_KAPTCHA_STORE_TEXT_KEY
            time-key: YOUKOL_KAPTCHA_STORE_TIME_KEY
-           timeout: 600001
+           timeout: 60000
            # Only used in CacheKaptchaStoreResolver
            cache:
              cache-name: YOUKOL_KAPTCHA_STORE_CACHE_NAME

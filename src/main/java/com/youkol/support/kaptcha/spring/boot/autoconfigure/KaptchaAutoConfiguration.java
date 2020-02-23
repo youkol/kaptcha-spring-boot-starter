@@ -70,7 +70,7 @@ public class KaptchaAutoConfiguration {
         return simpleKaptchaProducer;
     }
 
-    @Bean(name = "kaptchaStoreResolver", initMethod = "init")
+    @Bean(name = "kaptchaStoreResolver")
     @ConditionalOnMissingBean
     public KaptchaStoreResolver kaptchaStoreResolver(KaptchaConfig config, @Autowired(required = false) CacheManager cacheManager)
             throws Exception {
