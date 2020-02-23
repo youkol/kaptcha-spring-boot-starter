@@ -13,6 +13,12 @@
         "defaultValue": "/kaptcha"
       },
       {
+        "name": "youkol.web.kaptcha.size-param",
+        "type": "java.lang.String",
+        "description": "The size parameter of http request for KaptchaServlet",
+        "defaultValue": "size"
+      },
+      {
         "name": "youkol.web.kaptcha.config.kaptcha.border",
         "type": "java.lang.String",
         "description": "A string flag that can disable kaptcha border display.",
@@ -136,13 +142,55 @@
         "name": "youkol.web.kaptcha.config.kaptcha.session.key",
         "type": "java.lang.String",
         "description": "The kaptcha session key.",
-        "defaultValue": "KAPTCHA_SESSION_KEY"
+        "defaultValue": "KAPTCHA_SESSION_KEY",
+        "deprecation": {
+          "replacement": "youkol.web.kaptcha.config.kaptcha.store.text-key"
+        }
       },
       {
         "name": "youkol.web.kaptcha.config.kaptcha.session.date",
         "type": "java.lang.String",
         "description": "The kaptcha session date.",
-        "defaultValue": "KAPTCHA_SESSION_DATE"
+        "defaultValue": "KAPTCHA_SESSION_DATE",
+        "deprecation": {
+          "replacement": "youkol.web.kaptcha.config.kaptcha.store.time-key"
+        }
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.store.resolver-class-name",
+        "type": "java.lang.String",
+        "description": "The kaptcha store resolver implementation.",
+        "defaultValue": "com.youkol.support.kaptcha.store.impl.SessionKaptchaStoreResolver"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.store.text-key",
+        "type": "java.lang.String",
+        "description": "The kaptcha text key used in store.",
+        "defaultValue": "YOUKOL_KAPTCHA_STORE_TEXT_KEY"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.store.time-key",
+        "type": "java.lang.String",
+        "description": "The kaptcha time key used in store. ",
+        "defaultValue": "YOUKOL_KAPTCHA_STORE_TIME_KEY"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.store.timeout",
+        "type": "java.lang.String",
+        "description": "Every kaptcha record store timeout. It is used to checking text of store is effectiv. UNIT: milliseconds.",
+        "defaultValue": "60000"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.store.cache.cache-name",
+        "type": "java.lang.String",
+        "description": "The cache name. It supported by the spring cache manager.",
+        "defaultValue": "YOUKOL_KAPTCHA_STORE_CACHE_NAME"
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.store.cache.header-name",
+        "type": "java.lang.String",
+        "description": "Requests header name. It is used to retrieve or put the uuid from request headers.",
+        "defaultValue": "YOUKOL_KAPTCHA_HEADER_TOKEN"
       }
     ],
     "hints": [
@@ -219,6 +267,17 @@
             "name": "class-reference",
             "parameters": {
               "target": "com.google.code.kaptcha.BackgroundProducer"
+            }
+          }
+        ]
+      },
+      {
+        "name": "youkol.web.kaptcha.config.kaptcha.store.resolver-class-name",
+        "providers": [
+          {
+            "name": "class-reference",
+            "parameters": {
+              "target": "com.youkol.support.kaptcha.store.KaptchaStoreResolver"
             }
           }
         ]
