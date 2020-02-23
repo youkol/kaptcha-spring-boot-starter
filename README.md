@@ -12,9 +12,9 @@ Kaptcha for spring boot autoconfigure.
  - [x] Custom your urlMapping for kaptcha servlet.
  - [x] Auto register bean, more information please see `KaptchaAutoConfiguration`.
  - [x] Expose bean of `KaptchaConfig` and `KaptchaProducer`, you can use it to custom your implementation.
- - [ ] KaptchaServet request accept a size parameter,    
+ - [x] KaptchaServet request accept a size parameter,    
        it will generate different image size based on the parameter for every request.
- - [ ] The extended support let you can custom storage mode for the text in image.
+ - [x] The extended support let you can custom storage mode for the text in image.
 
 ### 2. Maven
 ```xml
