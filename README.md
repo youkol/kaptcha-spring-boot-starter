@@ -21,7 +21,7 @@ Kaptcha for spring boot autoconfigure.
 <dependency>
     <groupId>com.youkol.support.kaptcha</groupId>
     <artifactId>kaptcha-spring-boot-starter</artifactId>
-    <version>2.3.2</version>
+    <version>2.3.3</version>
 </dependency>
 ```
 
@@ -78,7 +78,7 @@ youkol:
             width: 200
             height: 50
           # Deprecated session config, please use store.*
-          # since version 3.2.3
+          # since version 2.3.3
           # session:
           #   key: YOUKOL_KAPTCHA_SESSION_KEY
           #   date: YOUKOL_KAPTCHA_SESSION_DATE
