@@ -18,10 +18,16 @@ package com.youkol.support.kaptcha.spring.boot.autoconfigure;
 import javax.servlet.Servlet;
 
 import com.google.code.kaptcha.Producer;
-import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.servlet.KaptchaServlet;
 import com.google.code.kaptcha.util.Config;
+import com.youkol.support.kaptcha.config.KaptchaConfig;
+import com.youkol.support.kaptcha.producer.KaptchaProducer;
+import com.youkol.support.kaptcha.producer.SimpleKaptchaProducer;
+import com.youkol.support.kaptcha.servlet.SimpleKaptchaServlet;
+import com.youkol.support.kaptcha.store.KaptchaStoreResolver;
+import com.youkol.support.kaptcha.store.impl.CacheKaptchaStoreResolver;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -32,6 +38,7 @@ import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoC
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -50,33 +57,54 @@ public class KaptchaAutoConfiguration {
 
     @Bean(name = "kaptchaConfig")
     @ConditionalOnMissingBean
-    public Config kaptchaConfig() {
+    public KaptchaConfig kaptchaConfig() {
         return this.kaptchaProperties.createKaptchaConfig();
     }
 
     @Bean(name = "kaptchaProducer")
     @ConditionalOnMissingBean
-    public Producer kaptchaProducer(Config config) {
-        DefaultKaptcha producer = new DefaultKaptcha();
-        producer.setConfig(config);
+    public KaptchaProducer kaptchaProducer(KaptchaConfig config) {
+        SimpleKaptchaProducer simpleKaptchaProducer = new SimpleKaptchaProducer();
+        simpleKaptchaProducer.setConfig(config);
 
-        return producer;
+        return simpleKaptchaProducer;
+    }
+
+    @Bean(name = "kaptchaStoreResolver", initMethod = "init")
+    @ConditionalOnMissingBean
+    public KaptchaStoreResolver kaptchaStoreResolver(KaptchaConfig config, @Autowired(required = false) CacheManager cacheManager)
+            throws Exception {
+        KaptchaStoreResolver kaptchaStoreResolver = config.getStoreResolverImpl();
+        if (kaptchaStoreResolver instanceof CacheKaptchaStoreResolver) { // when CacheKaptchaStoreResolver
+            if (cacheManager == null) {
+                throw new Exception("The CacheManager bean is not exist!");
+            }
+            CacheKaptchaStoreResolver cacheKaptchaStoreResolver = (CacheKaptchaStoreResolver)kaptchaStoreResolver;
+            cacheKaptchaStoreResolver.setCacheManager(cacheManager);
+
+            return cacheKaptchaStoreResolver;
+        }
+
+        return kaptchaStoreResolver;
     }
 
     @Bean(name = "kaptchaServlet")
     @ConditionalOnMissingBean
     @ConditionalOnProperty(prefix = KaptchaProperties.KAPTCHA_PREFIX, value = "enabled", matchIfMissing = true)
-    public KaptchaServlet kaptchaServlet() {
-        KaptchaServlet kaptchaServlet = new KaptchaServlet();
+    public SimpleKaptchaServlet kaptchaServlet(KaptchaProducer kaptchaProducer, KaptchaStoreResolver kaptchaStoreResolver) {
+        SimpleKaptchaServlet kaptchaServlet = new SimpleKaptchaServlet();
+        kaptchaServlet.setKaptchaProducer(kaptchaProducer);
+        kaptchaServlet.setKaptchaStoreResolver(kaptchaStoreResolver);
+        kaptchaServlet.setSizeParam(kaptchaProperties.getSizeParam());
 
         return kaptchaServlet;
     }
 
     @Bean(name = "kaptchaServletRegistrationBean")
-    @ConditionalOnBean(value = KaptchaServlet.class, name = "kaptchaServlet")
+    @ConditionalOnBean(value = SimpleKaptchaServlet.class, name = "kaptchaServlet")
     @ConditionalOnProperty(prefix = KaptchaProperties.KAPTCHA_PREFIX, value = "enabled", matchIfMissing = true)
-    public ServletRegistrationBean<KaptchaServlet> kaptchaServletRegistrationBean(KaptchaServlet kaptchaServlet){
-        ServletRegistrationBean<KaptchaServlet> registration = new ServletRegistrationBean<>();
+    public ServletRegistrationBean<SimpleKaptchaServlet> kaptchaServletRegistrationBean(SimpleKaptchaServlet kaptchaServlet){
+        ServletRegistrationBean<SimpleKaptchaServlet> registration = new ServletRegistrationBean<>();
         registration.setName("kaptchaServlet");
         registration.setServlet(kaptchaServlet);
         registration.addUrlMappings(kaptchaProperties.getUrlMapping());

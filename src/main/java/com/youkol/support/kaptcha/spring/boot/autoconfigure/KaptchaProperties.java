@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import com.google.code.kaptcha.util.Config;
+import com.youkol.support.kaptcha.config.KaptchaConfig;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
@@ -33,9 +33,10 @@ public class KaptchaProperties {
 
     private String urlMapping = "/kaptcha";
 
+    private String sizeParam = "size";
+
     /**
-     * kaptcha inner config
-     * {@link com.google.code.kaptcha.Constants}
+     * kaptcha inner config {@link com.google.code.kaptcha.Constants}
      */
     @NestedConfigurationProperty
     private Map<String, String> config = new HashMap<>();
@@ -56,6 +57,14 @@ public class KaptchaProperties {
         this.urlMapping = urlMapping;
     }
 
+    public String getSizeParam() {
+        return sizeParam;
+    }
+
+    public void setSizeParam(String sizeParam) {
+        this.sizeParam = sizeParam;
+    }
+
     public Map<String, String> getConfig() {
         return config;
     }
@@ -64,13 +73,13 @@ public class KaptchaProperties {
         this.config = config;
     }
 
-    public Config createKaptchaConfig() {
+    public KaptchaConfig createKaptchaConfig() {
         Properties properties = new Properties();
         for (Map.Entry<String, String> entry : this.config.entrySet()) {
             properties.setProperty(entry.getKey(), entry.getValue());
         }
 
-        return new Config(properties);
+        return new KaptchaConfig(properties);
     }
 
 }
