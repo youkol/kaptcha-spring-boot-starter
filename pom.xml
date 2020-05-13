@@ -28,7 +28,7 @@
   <groupId>com.youkol.support.kaptcha</groupId>
   <artifactId>kaptcha-spring-boot-starter</artifactId>
   <packaging>jar</packaging>
-  <version>2.3.3-SNAPSHOT</version>
+  <version>2.3.3</version>
 
   <name>kaptcha-spring-boot-starter</name>
   <description>kaptcha for spring boot autoconfigure</description>
@@ -63,7 +63,7 @@
     <connection>scm:git:git://github.com/youkol/kaptcha-spring-boot-starter.git</connection>
     <developerConnection>scm:git:git@github.com:youkol/kaptcha-spring-boot-starter.git</developerConnection>
     <url>https://github.com/youkol/kaptcha-spring-boot-starter</url>
-    <tag>HEAD</tag>
+    <tag>v2.3.3</tag>
   </scm>
 
   <issueManagement>
