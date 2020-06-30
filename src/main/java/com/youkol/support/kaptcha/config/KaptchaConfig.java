@@ -77,7 +77,7 @@ public class KaptchaConfig extends Config {
     public int getStoreTimeout() {
         String paramName = KAPTCHA_STORE_TIMEOUT;
         String paramValue = this.getProperties().getProperty(paramName);
-        return this.helper.getPositiveInt(paramName, paramValue, 60_000);
+        return this.helper.getPositiveInt(paramName, paramValue, 15 * 60 * 1000); // default 15min
     }
 
     public String getStoreCacheName() {

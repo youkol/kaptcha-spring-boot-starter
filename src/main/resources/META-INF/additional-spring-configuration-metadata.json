@@ -177,8 +177,8 @@
       {
         "name": "youkol.web.kaptcha.config.kaptcha.store.timeout",
         "type": "java.lang.String",
-        "description": "Every kaptcha record store timeout. It is used to checking text of store is effectiv. UNIT: milliseconds.",
-        "defaultValue": "60000"
+        "description": "Every kaptcha record store timeout. It is used to checking text of store is effectiv. UNIT: milliseconds. default: 15min (900000ms)",
+        "defaultValue": "900000"
       },
       {
         "name": "youkol.web.kaptcha.config.kaptcha.store.cache.cache-name",
