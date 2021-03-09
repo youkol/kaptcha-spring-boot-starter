@@ -80,16 +80,17 @@ youkol:
 ### 3. Send Request Url
 GET http(s)://{host}:{port}/{contextPath}/{urlMapping}   
 For example:   
-1. youkol.web.kaptcha.servlet.format = image   
-<code>
-  Get: http://localhost:8080/kaptcha   
-  Response: kaptcha image (image/jpeg)
-</code>
-2. youkol.web.kaptcha.servlet.format = base64   
-<code>
-  Get: http://localhost:8080/kaptcha   
-  Response: {"code": "200", "message": "OK", "data": { "uuid": "765e964434f140419143ffe4f86c6284"} }
-</code>
+1. response image    
+
+    Request: GET http://localhost:8080/kaptcha   
+    Response: kaptcha image (image/jpeg)
+
+
+2. response json    
+
+    Request: GET http://localhost:8080/kaptcha?format=base64    
+    Response: {"code": "200", "message": "OK", "data": { "uuid": "f7e7001f042a47eaa73dcdafe01a7b9d", "image": "data:image/jpeg;base64,/9j/4AA...RRRQB//9k="}}    
+
 
 ### About [Kaptcha](https://github.com/youkol/kaptcha)   
 
