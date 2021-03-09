@@ -20,11 +20,30 @@ import java.awt.image.BufferedImage;
 import com.google.code.kaptcha.Producer;
 
 /**
- * Producer extended supprot.
+ * Producer extended support.
  *
  * @author jackiea
  */
 public interface KaptchaProducer extends Producer {
 
+    /**
+     * Create an image with the specified width and height which will have written a distorted text.
+     *
+     * @param text the distorted characters
+     * @param width image width
+     * @param height image height
+     * @return image with the text
+     */
     BufferedImage createImage(String text, int width, int height);
+
+    /**
+     * Create an image with the specified width and height and font size which will have written a distorted text.
+     *
+     * @param text the distorted characters
+     * @param width image width
+     * @param height image height
+     * @param fontSize the character's font size
+     * @return image with the text
+     */
+    BufferedImage createImage(String text, int width, int height, int fontSize);
 }

@@ -6,17 +6,7 @@
 
 Kaptcha for spring boot autoconfigure.
 
-### 1. Features
- - [x] Support spring boot configuration metadata. (v2.3.2)
- - [x] Flexible enabled or disabled kaptcha. (v2.3.2)
- - [x] Custom your urlMapping for kaptcha servlet. (v2.3.2)
- - [x] Auto register bean, more information please see `KaptchaAutoConfiguration`. (v2.3.2)
- - [x] Expose bean of `KaptchaConfig` and `KaptchaProducer`, you can use it to custom your implementation. (v2.3.2)
- - [x] KaptchaServet request accept a size parameter,    
-       it will generate different image size based on the parameter for every request. (v2.3.3)
- - [x] The extended support let you can custom storage mode for the text in image. (v2.3.3)
-
-### 2. Maven
+### 1. Maven
 ```xml
 <dependency>
     <groupId>com.youkol.support.kaptcha</groupId>
@@ -25,7 +15,7 @@ Kaptcha for spring boot autoconfigure.
 </dependency>
 ```
 
-### 3. Config spring-boot application.yml 
+### 2. Config spring-boot application.yml 
 ```yaml
 # Support zero-configuration mode, it will running by the default value.
 # For Example:
@@ -33,8 +23,16 @@ youkol:
   web:
     kaptcha:
       enabled: true
-      url-mapping: /kaptcha
-      size-param: size
+      servlet:
+        enabled: true
+        url-mapping: /kaptcha
+        size-param: size
+        font-size-param: fontSize
+      cache:
+        # cache.type = session or redis.
+        type: session
+        token-name: YOUKOL_KAPTCHA_TOKEN
+        timeout: 300000
       config:
         kaptcha:
           #
@@ -68,7 +66,7 @@ youkol:
           obscurificator:
             impl: com.google.code.kaptcha.impl.WaterRipple
           word:
-            impl: com.google.code.kaptcha.text.impl.DefaultWordRenderer
+            impl: com.youkol.support.kaptcha.text.impl.SimpleWordRenderer
           background:
             impl: com.google.code.kaptcha.impl.DefaultBackground
             clear:
@@ -77,22 +75,23 @@ youkol:
           image:
             width: 200
             height: 50
-          # Deprecated session config, please use store.*
-          # since version 2.3.3
-          # session:
-          #   key: YOUKOL_KAPTCHA_SESSION_KEY
-          #   date: YOUKOL_KAPTCHA_SESSION_DATE
-          store:
-           resolver-class-name: com.youkol.support.kaptcha.store.impl.CacheKaptchaStoreResolver
-           text-key: YOUKOL_KAPTCHA_STORE_TEXT_KEY
-           time-key: YOUKOL_KAPTCHA_STORE_TIME_KEY
-           timeout: 60000
-           # Only used in CacheKaptchaStoreResolver
-           cache:
-             cache-name: YOUKOL_KAPTCHA_STORE_CACHE_NAME
-             header-name: YOUKOL_KAPTCHA_HEADER_TOKEN
 ```
 
-### About Kaptcha
+### 3. Send Request Url
+GET http(s)://{host}:{port}/{contextPath}/{urlMapping}   
+For example:   
+1. youkol.web.kaptcha.servlet.format = image   
+<code>
+  Get: http://localhost:8080/kaptcha   
+  Response: kaptcha image (image/jpeg)
+</code>
+2. youkol.web.kaptcha.servlet.format = base64   
+<code>
+  Get: http://localhost:8080/kaptcha   
+  Response: {"code": "200", "message": "OK", "data": { "uuid": "765e964434f140419143ffe4f86c6284"} }
+</code>
+
+### About [Kaptcha](https://github.com/youkol/kaptcha)   
+
 Please see more information about this project.  
 http://code.google.com/p/kaptcha/  

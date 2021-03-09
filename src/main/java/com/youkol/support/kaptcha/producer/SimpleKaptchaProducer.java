@@ -25,6 +25,7 @@ import com.google.code.kaptcha.BackgroundProducer;
 import com.google.code.kaptcha.GimpyEngine;
 import com.google.code.kaptcha.text.WordRenderer;
 import com.google.code.kaptcha.util.Configurable;
+import com.youkol.support.kaptcha.text.impl.SimpleWordRenderer;
 
 /**
  * SimpleKaptchaProducer
@@ -35,20 +36,8 @@ public class SimpleKaptchaProducer extends Configurable implements KaptchaProduc
 
     @Override
     public BufferedImage createImage(String text, int width, int height) {
-        WordRenderer wordRenderer = getConfig().getWordRendererImpl();
-        GimpyEngine gimpyEngine = getConfig().getObscurificatorImpl();
-        BackgroundProducer backgroundProducer = getConfig().getBackgroundImpl();
-        boolean isBorderDrawn = getConfig().isBorderDrawn();
-
-        BufferedImage bi = wordRenderer.renderWord(text, width, height);
-        bi = gimpyEngine.getDistortedImage(bi);
-        bi = backgroundProducer.addBackground(bi);
-        Graphics2D graphics = bi.createGraphics();
-        if (isBorderDrawn) {
-            drawBox(graphics, width, height);
-        }
-
-        return bi;
+        int fontSize = this.getConfig().getTextProducerFontSize();
+        return this.createImage(text, width, height, fontSize);
     }
 
     /**
@@ -57,8 +46,33 @@ public class SimpleKaptchaProducer extends Configurable implements KaptchaProduc
      * @param text the distorted characters
      * @return image with the text
      */
+    @Override
     public BufferedImage createImage(String text) {
         return createImage(text, this.getConfig().getWidth(), this.getConfig().getHeight());
+    }
+
+    @Override
+    public BufferedImage createImage(String text, int width, int height, int fontSize) {
+        WordRenderer wordRenderer = getConfig().getWordRendererImpl();
+        GimpyEngine gimpyEngine = getConfig().getObscurificatorImpl();
+        BackgroundProducer backgroundProducer = getConfig().getBackgroundImpl();
+        boolean isBorderDrawn = getConfig().isBorderDrawn();
+
+        BufferedImage bi;
+        if (wordRenderer instanceof SimpleWordRenderer) {
+            bi = ((SimpleWordRenderer) wordRenderer).renderWord(text, width, height, fontSize);
+        } else {
+            bi = wordRenderer.renderWord(text, width, height);
+        }
+
+        bi = gimpyEngine.getDistortedImage(bi);
+        bi = backgroundProducer.addBackground(bi);
+        Graphics2D graphics = bi.createGraphics();
+        if (isBorderDrawn) {
+            drawBox(graphics, width, height);
+        }
+
+        return bi;
     }
 
     protected void drawBox(Graphics2D graphics, int width, int height) {
@@ -76,9 +90,9 @@ public class SimpleKaptchaProducer extends Configurable implements KaptchaProduc
         graphics.draw(line1);
         Line2D line2 = new Line2D.Double(0, 0, width, 0);
         graphics.draw(line2);
-        line2 = new Line2D.Double(0, height - 1, width, height - 1);
+        line2 = new Line2D.Double(0, (double) (height - 1), width, (double) (height - 1));
         graphics.draw(line2);
-        line2 = new Line2D.Double(width - 1, height - 1, width - 1, 0);
+        line2 = new Line2D.Double((double) (width - 1), (double) (height - 1), (double) (width - 1), 0);
         graphics.draw(line2);
     }
 

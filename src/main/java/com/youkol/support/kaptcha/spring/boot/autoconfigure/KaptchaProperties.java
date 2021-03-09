@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import com.youkol.support.kaptcha.cache.KaptchaCacheConfig;
 import com.youkol.support.kaptcha.config.KaptchaConfig;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -31,9 +32,11 @@ public class KaptchaProperties {
 
     private boolean enabled = true;
 
-    private String urlMapping = "/kaptcha";
+    @NestedConfigurationProperty
+    private Servlet servlet = new Servlet();
 
-    private String sizeParam = "size";
+    @NestedConfigurationProperty
+    private Cache cache = new Cache();
 
     /**
      * kaptcha inner config {@link com.google.code.kaptcha.Constants}
@@ -49,20 +52,20 @@ public class KaptchaProperties {
         this.enabled = enabled;
     }
 
-    public String getUrlMapping() {
-        return urlMapping;
+    public Servlet getServlet() {
+        return servlet;
     }
 
-    public void setUrlMapping(String urlMapping) {
-        this.urlMapping = urlMapping;
+    public void setServlet(Servlet servlet) {
+        this.servlet = servlet;
     }
 
-    public String getSizeParam() {
-        return sizeParam;
+    public Cache getCache() {
+        return cache;
     }
 
-    public void setSizeParam(String sizeParam) {
-        this.sizeParam = sizeParam;
+    public void setCache(Cache cache) {
+        this.cache = cache;
     }
 
     public Map<String, String> getConfig() {
@@ -80,6 +83,81 @@ public class KaptchaProperties {
         }
 
         return new KaptchaConfig(properties);
+    }
+
+    public static class Servlet {
+        private boolean enabled = true;
+
+        private String urlMapping = "/kaptcha";
+
+        private String sizeParam = "size";
+
+        private String fontSizeParam = "fontSize";
+
+        public boolean getEnabled() {
+            return enabled;
+        }
+
+        public void setEnabled(boolean enabled) {
+            this.enabled = enabled;
+        }
+
+        public String getUrlMapping() {
+            return urlMapping;
+        }
+
+        public void setUrlMapping(String urlMapping) {
+            this.urlMapping = urlMapping;
+        }
+
+        public String getSizeParam() {
+            return sizeParam;
+        }
+
+        public void setSizeParam(String sizeParam) {
+            this.sizeParam = sizeParam;
+        }
+
+        public String getFontSizeParam() {
+            return fontSizeParam;
+        }
+
+        public void setFontSizeParam(String fontSizeParam) {
+            this.fontSizeParam = fontSizeParam;
+        }
+    }
+
+    public static class Cache {
+        private String type = "session";
+
+        private String tokenName = KaptchaCacheConfig.DEFAULT_KAPTCHA_TOKEN_NAME;
+
+        private int timeout = 5 * 60 * 1000;
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getTokenName() {
+            return tokenName;
+        }
+
+        public void setTokenName(String tokenName) {
+            this.tokenName = tokenName;
+        }
+
+        public int getTimeout() {
+            return timeout;
+        }
+
+        public void setTimeout(int timeout) {
+            this.timeout = timeout;
+        }
+
     }
 
 }

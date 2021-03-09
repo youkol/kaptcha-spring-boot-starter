@@ -107,10 +107,15 @@
       <version>${kaptcha.version}</version>
     </dependency>
     <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
       <optional>true</optional>
-		</dependency>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-redis</artifactId>
+      <optional>true</optional>
+    </dependency>
     <!-- @ConfigurationProperties annotation processing (metadata for IDEs) -->
     <dependency>
       <groupId>org.springframework.boot</groupId>

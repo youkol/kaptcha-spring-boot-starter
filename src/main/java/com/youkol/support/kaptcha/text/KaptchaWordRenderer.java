@@ -13,23 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.youkol.support.kaptcha.store;
+package com.youkol.support.kaptcha.text;
 
-import java.util.Optional;
+import java.awt.image.BufferedImage;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.google.code.kaptcha.text.WordRenderer;
 
 /**
+ * {@link KaptchaWordRenderer} is responsible for rendering words.
+ *
  * @author jackiea
+ * @see WordRenderer
  */
-public interface KaptchaStoreResolver {
+public interface KaptchaWordRenderer extends WordRenderer {
 
-    Optional<String> getKaptchaText(HttpServletRequest request);
-
-    Optional<Long> getKaptchaTime(HttpServletRequest request);
-
-    void putKaptcha(HttpServletRequest request, HttpServletResponse response, String text);
-
-    boolean validKaptcha(HttpServletRequest request, String text);
+    BufferedImage renderWord(String word, int width, int height, int fontSize);
 }
