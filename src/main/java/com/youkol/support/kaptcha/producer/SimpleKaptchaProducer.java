@@ -25,7 +25,7 @@ import com.google.code.kaptcha.BackgroundProducer;
 import com.google.code.kaptcha.GimpyEngine;
 import com.google.code.kaptcha.text.WordRenderer;
 import com.google.code.kaptcha.util.Configurable;
-import com.youkol.support.kaptcha.text.impl.SimpleWordRenderer;
+import com.youkol.support.kaptcha.text.KaptchaWordRenderer;
 
 /**
  * SimpleKaptchaProducer
@@ -59,8 +59,8 @@ public class SimpleKaptchaProducer extends Configurable implements KaptchaProduc
         boolean isBorderDrawn = getConfig().isBorderDrawn();
 
         BufferedImage bi;
-        if (wordRenderer instanceof SimpleWordRenderer) {
-            bi = ((SimpleWordRenderer) wordRenderer).renderWord(text, width, height, fontSize);
+        if (wordRenderer instanceof KaptchaWordRenderer) {
+            bi = ((KaptchaWordRenderer) wordRenderer).renderWord(text, width, height, fontSize);
         } else {
             bi = wordRenderer.renderWord(text, width, height);
         }
