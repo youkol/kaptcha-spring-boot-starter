@@ -108,7 +108,7 @@ public Object login(HttpServletRequest request) {
 **Note:** 
 when use redis mode, you must put token-name and token-value in request header.   
  - token-name: `youkol.web.kaptcha.cache.token-name`
- - token-value: the uuid of response (the uuid also put in response header)
+ - token-value: the uuid of response (The uuid also can get from response header)
 
 ### About [Kaptcha](https://github.com/youkol/kaptcha)   
 
