@@ -31,7 +31,7 @@ youkol:
       cache:
         # cache.type = session or redis.
         type: session
-        token-name: YOUKOL_KAPTCHA_TOKEN
+        token-name: YOUKOL-KAPTCHA-TOKEN
         timeout: 300000
       config:
         kaptcha:
