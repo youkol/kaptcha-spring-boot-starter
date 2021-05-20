@@ -21,7 +21,7 @@ package com.youkol.support.kaptcha.cache;
  */
 public interface KaptchaCacheConfig {
 
-    public static final String DEFAULT_KAPTCHA_TOKEN_NAME = "YOUKOL_KAPTCHA_TOKEN";
+    public static final String DEFAULT_KAPTCHA_TOKEN_NAME = "YOUKOL-KAPTCHA-TOKEN";
 
     default String getCacheTokenName() {
         return DEFAULT_KAPTCHA_TOKEN_NAME;
