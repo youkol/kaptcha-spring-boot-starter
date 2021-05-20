@@ -85,12 +85,30 @@ For example:
     Request: GET http://localhost:8080/kaptcha   
     Response: kaptcha image (image/jpeg)
 
-
 2. response json    
 
     Request: GET http://localhost:8080/kaptcha?format=base64    
-    Response: {"code": "200", "message": "OK", "data": { "uuid": "f7e7001f042a47eaa73dcdafe01a7b9d", "image": "data:image/jpeg;base64,/9j/4AA...RRRQB//9k="}}    
+    Response: {"code": "200", "message": "OK", "data": { "uuid": "f7e7001f042a47eaa73dcdafe01a7b9d", "image": "data:image/jpeg;base64,/9j/4AA...RRRQB//9k="}}  
 
+### 4. validate image code
+sample code:
+```java
+// For example:
+@Autowired
+private KaptchaCacheResolver kaptchaCacheResolver;
+
+public Object login(HttpServletRequest request) {
+    // some things.
+    // valid Kaptcha
+    String code = request.getParameter("code");
+    boolean bValid = kaptchaCacheResolver.validKaptcha(request, code);
+    // other things.
+}
+```
+**Note:** 
+when use redis mode, you must put token-name and token-value in request header.   
+ - token-name: `youkol.web.kaptcha.cache.token-name`
+ - token-value: the uuid of response (the uuid also put in response header)
 
 ### About [Kaptcha](https://github.com/youkol/kaptcha)   
 
