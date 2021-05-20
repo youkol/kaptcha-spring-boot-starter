@@ -29,6 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 /**
  *
@@ -57,6 +58,10 @@ public class RedisKaptchaCacheResolver extends AbstractkaptchaCacheResolver {
             if (deleteCache) {
                 redis.delete(cacheKey);
             }
+            if (StringUtils.isEmpty(kaptcha)) {
+                return null;
+            }
+
             try {
                 return objectMapper.readValue(kaptcha, Kaptcha.class);
             } catch (JsonProcessingException ex) {
@@ -106,6 +111,10 @@ public class RedisKaptchaCacheResolver extends AbstractkaptchaCacheResolver {
 
     public void setRedisTemplate(Optional<RedisTemplate<String, String>> redisTemplate) {
         this.redisTemplate = redisTemplate;
+    }
+
+    public void setObjectMapper(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
     }
 
 }
