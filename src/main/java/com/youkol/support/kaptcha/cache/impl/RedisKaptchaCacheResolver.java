@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youkol.support.kaptcha.cache.AbstractkaptchaCacheResolver;
+import com.youkol.support.kaptcha.cache.AbstractKaptchaCacheResolver;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +35,7 @@ import org.springframework.util.StringUtils;
  *
  * @author jackiea
  */
-public class RedisKaptchaCacheResolver extends AbstractkaptchaCacheResolver {
+public class RedisKaptchaCacheResolver extends AbstractKaptchaCacheResolver {
 
     private static final Logger log = LoggerFactory.getLogger(RedisKaptchaCacheResolver.class);
 

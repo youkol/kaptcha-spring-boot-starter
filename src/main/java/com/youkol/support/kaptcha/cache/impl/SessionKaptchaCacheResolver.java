@@ -20,14 +20,14 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.youkol.support.kaptcha.cache.AbstractkaptchaCacheResolver;
+import com.youkol.support.kaptcha.cache.AbstractKaptchaCacheResolver;
 
 /**
  * Kaptcha session storage.
  *
  * @author jackiea
  */
-public class SessionKaptchaCacheResolver extends AbstractkaptchaCacheResolver {
+public class SessionKaptchaCacheResolver extends AbstractKaptchaCacheResolver {
 
     public SessionKaptchaCacheResolver() {
         super();

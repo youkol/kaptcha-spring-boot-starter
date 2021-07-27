@@ -26,13 +26,13 @@ import org.springframework.util.StringUtils;
  *
  * @author jackiea
  */
-public abstract class AbstractkaptchaCacheResolver implements KaptchaCacheResolver {
+public abstract class AbstractKaptchaCacheResolver implements KaptchaCacheResolver {
 
     protected long timeout = 5 * 60 * 1000L;
 
     private String tokenName = KaptchaCacheConfig.DEFAULT_KAPTCHA_TOKEN_NAME;
 
-    protected AbstractkaptchaCacheResolver() {
+    protected AbstractKaptchaCacheResolver() {
     }
 
     @Override
@@ -89,22 +89,31 @@ public abstract class AbstractkaptchaCacheResolver implements KaptchaCacheResolv
      * @return the cache key
      */
     protected String getCacheKey(String uuid) {
-        return this.getCacheTokenName() + "." + uuid;
+        return this.getCacheTokenName() + ":" + uuid;
     }
 
     /**
      * Get id from request.
      *
-     * Note: First get id from request header, when value is null,
-     * then get id from request attribute.
+     * Note:
+     * 1. Find id from request header
+     * 2. Find id from request parameter
+     * 3. Find id from request attribute
      *
      * @param request HttpServletRequest
      * @return id
      */
     protected String getIdFromRequest(HttpServletRequest request) {
         String tokenKey = this.getCacheTokenName();
-        return Optional.ofNullable(request.getHeader(tokenKey))
-            .orElseGet(() -> (String) request.getAttribute(tokenKey));
+        String tokenId = request.getHeader(tokenKey);
+        if (tokenId == null) {
+            tokenId = request.getParameter(tokenKey);
+        }
+        if (tokenId == null) {
+            tokenId = (String) request.getAttribute(tokenKey);
+        }
+
+        return tokenId;
     }
 
 }
