@@ -87,14 +87,4 @@ public class SimpleMathTextCreator extends Configurable implements TextProducer 
         return text.substring(text.lastIndexOf("@") + 1);
     }
 
-    public static void main(String[] args) {
-        SimpleMathTextCreator creator = new SimpleMathTextCreator();
-        for (int i = 0; i < 100; i++) {
-            String text = creator.getText();
-            String express = SimpleMathTextCreator.extractMathExpression(text);
-            String result = SimpleMathTextCreator.extractMathResult(text);
-            System.out.println(text + "\t" + express + "\t" + result);
-        }
-    }
-
 }
