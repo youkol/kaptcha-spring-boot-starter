@@ -84,7 +84,7 @@ public interface KaptchaCacheResolver extends KaptchaCacheConfig {
         private static final long serialVersionUID = 1L;
 
         /**
-         * katpcha text.
+         * kaptcha text.
          */
         private String text;
 

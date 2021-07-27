@@ -29,10 +29,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.code.kaptcha.text.TextProducer;
 import com.youkol.support.kaptcha.cache.KaptchaCacheResolver;
 import com.youkol.support.kaptcha.config.KaptchaConfig;
 import com.youkol.support.kaptcha.producer.KaptchaProducer;
+import com.youkol.support.kaptcha.text.impl.SimpleMathTextCreator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.FastByteArrayOutputStream;
 import org.springframework.util.StringUtils;
 
@@ -44,6 +49,7 @@ import org.springframework.util.StringUtils;
 public class SimpleKaptchaServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
+    private static final Logger logger = LoggerFactory.getLogger(SimpleKaptchaServlet.class);
 
     public static final String DEFAULT_SIZE_PARAM = "size";
 
@@ -64,6 +70,8 @@ public class SimpleKaptchaServlet extends HttpServlet {
     private KaptchaProducer kaptchaProducer;
 
     private KaptchaCacheResolver kaptchaCacheResolver;
+
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     /*
      * (non-Javadoc)
@@ -96,48 +104,74 @@ public class SimpleKaptchaServlet extends HttpServlet {
         int[] size = this.getSizeFromRequest(req);
         int fontSize = this.getFontSizeFromRequest(req);
         ResponseFormat format = this.getResponseFormat(req);
+        String kaptchaText;
+        String kaptchaResult;
 
         // create the text for the image
-        String capText = this.kaptchaProducer.createText();
+        String text = this.kaptchaProducer.createText();
+        kaptchaText = text;
+        kaptchaResult = text;
+
+        // when create text by simple math text creator
+        TextProducer textProducer = this.kaptchaConfig.getTextProducerImpl();
+        if (textProducer instanceof SimpleMathTextCreator) {
+            kaptchaText = SimpleMathTextCreator.extractMathExpression(text);
+            kaptchaResult = SimpleMathTextCreator.extractMathResult(text);
+        }
 
         // cache the kaptcha text
         String uuid = null;
         if (kaptchaCacheResolver != null) {
-            uuid = kaptchaCacheResolver.putKaptcha(req, resp, capText);
+            uuid = kaptchaCacheResolver.putKaptcha(req, resp, kaptchaResult);
         }
 
         // create the image with the text
-        BufferedImage bi = this.kaptchaProducer.createImage(capText, size[0], size[1], fontSize);
+        BufferedImage bi = this.kaptchaProducer.createImage(kaptchaText, size[0], size[1], fontSize);
 
-        if (ResponseFormat.IMAGE == format) {
-            // Set to expire far in the past.
-            resp.setDateHeader("Expires", 0);
-            // Set standard HTTP/1.1 no-cache headers.
-            resp.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
-            // Set IE extended HTTP/1.1 no-cache headers (use addHeader).
-            resp.addHeader("Cache-Control", "post-check=0, pre-check=0");
-            // Set standard HTTP/1.0 no-cache header.
-            resp.setHeader("Pragma", "no-cache");
-
-            // return a jpeg
-            resp.setContentType("image/jpeg");
-
-            ServletOutputStream out = resp.getOutputStream();
-
-            // write the data out
-            ImageIO.write(bi, "jpg", out);
-            return;
+        try {
+            if (ResponseFormat.IMAGE == format) {
+                this.imageFormatHandler(bi, resp, uuid);
+                return;
+            }
+            if (ResponseFormat.BASE64 == format) {
+                this.base64FormatHandler(bi, resp, uuid);
+            }
+        } catch (IOException ex) {
+            logger.error("doGet error", ex);
         }
-        if (ResponseFormat.BASE64 == format) {
-            FastByteArrayOutputStream os = new FastByteArrayOutputStream();
-            ImageIO.write(bi, "jpg", os);
-            String imageBase64 = Base64.getEncoder().encodeToString(os.toByteArray());
-            String result = String.format("{\"code\": \"%s\", \"message\": \"%s\", \"data\": { \"uuid\": \"%s\", \"image\": \"%s\"}}",
-                "200", "OK", uuid, "data:image/jpeg;base64," + imageBase64);
+    }
 
-            resp.setContentType("application/json;charset=UTF-8");
-            resp.getOutputStream().write(result.getBytes());
-        }
+    protected void imageFormatHandler(BufferedImage bi, HttpServletResponse response, String uuid) throws IOException {
+        // Set to expire far in the past.
+        response.setDateHeader("Expires", 0);
+        // Set standard HTTP/1.1 no-cache headers.
+        response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+        // Set IE extended HTTP/1.1 no-cache headers (use addHeader).
+        response.addHeader("Cache-Control", "post-check=0, pre-check=0");
+        // Set standard HTTP/1.0 no-cache header.
+        response.setHeader("Pragma", "no-cache");
+
+        // return a jpeg
+        response.setContentType("image/jpeg");
+
+        ServletOutputStream out = response.getOutputStream();
+
+        // write the data out
+        ImageIO.write(bi, "jpg", out);
+    }
+
+    protected void base64FormatHandler(BufferedImage bi, HttpServletResponse response, String uuid) throws IOException {
+        FastByteArrayOutputStream os = new FastByteArrayOutputStream();
+        ImageIO.write(bi, "jpg", os);
+        String imageBase64 = Base64.getEncoder().encodeToString(os.toByteArray());
+
+        Base64ImageData base64Data = new Base64ImageData(uuid, "data:image/jpeg;base64," + imageBase64);
+        KaptchaResult result = KaptchaResult.success(base64Data);
+
+        objectMapper.writeValue(response.getOutputStream(), result);
+
+        response.setContentType("application/json;charset=UTF-8");
+        response.getOutputStream().write(objectMapper.writeValueAsBytes(result));
     }
 
     protected int getFontSizeFromRequest(HttpServletRequest request) {
