@@ -11,7 +11,7 @@ Kaptcha for spring boot autoconfigure.
 <dependency>
     <groupId>com.youkol.support.kaptcha</groupId>
     <artifactId>kaptcha-spring-boot-starter</artifactId>
-    <version>2.3.4</version>
+    <version>2.3.5</version>
 </dependency>
 ```
 
@@ -51,6 +51,8 @@ youkol:
           producer:
             impl: com.google.code.kaptcha.impl.DefaultKaptcha
           textproducer:
+            # simple math text creator, for example `7+8=?`
+            # impl: com.youkol.support.kaptcha.text.impl.SimpleMathTextCreator
             impl: com.google.code.kaptcha.text.impl.DefaultTextCreator
             char:
               string: abcde2345678gfynmnpwx
@@ -82,15 +84,24 @@ GET http(s)://{host}:{port}/{contextPath}/{urlMapping}
 For example:   
 1. response image    
 
-    Request: GET http://localhost:8080/kaptcha   
-    Response: kaptcha image (image/jpeg)
+    Request: `GET` http://localhost:8080/kaptcha   
+    Response: `kaptcha image (image/jpeg)`
 
 2. response json    
 
-    Request: GET http://localhost:8080/kaptcha?format=base64    
-    Response: {"code": "200", "message": "OK", "data": { "uuid": "f7e7001f042a47eaa73dcdafe01a7b9d", "image": "data:image/jpeg;base64,/9j/4AA...RRRQB//9k="}}  
+    Request: `GET` http://localhost:8080/kaptcha?format=base64    
+    Response: `
+      {   
+        "code": "200",    
+        "message": "OK",    
+        "data": {    
+          "uuid": "f7e7001f042a47eaa73dcdafe01a7b9d",    
+          "image": "data:image/jpeg;base64,/9j/4AA...RRRQB//9k="   
+        }
+      }  `
 
 ### 4. validate image code
+
 sample code:
 ```java
 // For example:
@@ -105,6 +116,7 @@ public Object login(HttpServletRequest request) {
     // other things.
 }
 ```
+
 **Note:** 
 when use redis mode, you must put token-name and token-value in request header.   
  - token-name: `youkol.web.kaptcha.cache.token-name`
