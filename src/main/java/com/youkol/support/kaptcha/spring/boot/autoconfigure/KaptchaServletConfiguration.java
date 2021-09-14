@@ -44,6 +44,7 @@ public class KaptchaServletConfiguration {
             KaptchaProducer kaptchaProducer, KaptchaCacheResolver kaptchaCacheResolver) {
         SimpleKaptchaServlet kaptchaServlet = new SimpleKaptchaServlet();
         kaptchaServlet.setKaptchaCacheResolver(kaptchaCacheResolver);
+        kaptchaServlet.setKaptchaProducer(kaptchaProducer);
 
         Servlet servletInfo = kaptchaProperties.getServlet();
         kaptchaServlet.setSizeParam(servletInfo.getSizeParam());
