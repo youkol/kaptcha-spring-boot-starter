@@ -11,7 +11,7 @@ Kaptcha for spring boot autoconfigure.
 <dependency>
     <groupId>com.youkol.support.kaptcha</groupId>
     <artifactId>kaptcha-spring-boot-starter</artifactId>
-    <version>2.3.5</version>
+    <version>LATEST_VERSION</version>
 </dependency>
 ```
 
@@ -90,15 +90,17 @@ For example:
 2. response json    
 
     Request: `GET` http://localhost:8080/kaptcha?format=base64    
-    Response: `
-      {   
-        "code": "200",    
-        "message": "OK",    
-        "data": {    
-          "uuid": "f7e7001f042a47eaa73dcdafe01a7b9d",    
-          "image": "data:image/jpeg;base64,/9j/4AA...RRRQB//9k="   
-        }
-      }  `
+    Response: 
+      ```
+        {   
+          "code": "200",    
+          "message": "OK",    
+          "data": {    
+            "uuid": "f7e7001f042a47eaa73dcdafe01a7b9d",    
+            "image": "data:image/jpeg;base64,/9j/4AA...RRRQB//9k="   
+          }
+        }  
+      ```
 
 ### 4. validate image code
 
